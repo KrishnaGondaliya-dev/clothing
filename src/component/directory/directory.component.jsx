@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from "axios";
 import MenuItem from '../menu-item/menu-item.component';
 
 import './directory.styles.scss';
@@ -10,7 +10,7 @@ class Directory extends React.Component {
 
     this.state = {
       sections: [
-        {
+        /*{
           title: 'hats',
           imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
           id: 1,
@@ -41,11 +41,20 @@ class Directory extends React.Component {
           size: 'large',
           id: 5,
           linkUrl: ''
-        }
+        }*/
       ]
     };
   }
-
+  componentDidMount() {
+    axios.get('/postMessages')
+        .then(response => {
+            this.setState({ sections: response.data });
+           // console.log(response.data);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+}
   render() {
     return (
       <div className='directory-menu'>
@@ -55,6 +64,7 @@ class Directory extends React.Component {
       </div>
     );
   }
+  
 }
 
 export default Directory;
